@@ -119,7 +119,7 @@ class Sequential(d2l.HyperParameters, nn.Module):
             print(X.shape)
         return X
     
-class LeNet(d2l.Classifier):
+class LeNet(nn.Module, d2l.HyperParameters):
     def __init__(self, lr=0.1, num_classes=10):
         super().__init__()
         self.save_hyperparameters()
@@ -132,3 +132,5 @@ class LeNet(d2l.Classifier):
                  Linear(120, 84), Sigmoid(),
                  Linear(84, 10)
                 )
+    def forward(self, X):
+        return self.net(X)
