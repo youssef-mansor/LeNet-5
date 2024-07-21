@@ -116,9 +116,24 @@ class Sequential(d2l.HyperParameters, nn.Module):
     def forward(self, X):#(example, channel, height, width)
         for module in self.children():
             X = module(X)
-            print(X.shape)
+            # print(X.shape)
         return X
     
+# class Optim_SGD(d2l.HyperParameters):
+#     def __init__(self, params, lr):
+#         self.save_hyperparameters()
+#         print('hey there in optimizer')
+
+#     def step(self):
+#         for param in self.params:
+#             print('param before updating', param)
+#             param -= self.lr * param.grad
+#             print('param after updating', param)
+#     def zero_grad(self):
+#         for param in self.params:
+#             if param.grad is not None:
+#                 param.zero_grade_()
+
 class LeNet(nn.Module, d2l.HyperParameters):
     def __init__(self, lr=0.1, num_classes=10):
         super().__init__()
@@ -132,5 +147,14 @@ class LeNet(nn.Module, d2l.HyperParameters):
                  Linear(120, 84), Sigmoid(),
                  Linear(84, 10)
                 )
+        # self.optim = Optim_SGD(self.parameters(), self.lr)
+        # self.optim = torch.optim.SGD(self.parameters(), lr=self.lr)
+
     def forward(self, X):
-        return self.net(X)
+        return torch.softmax(self.net(X), 1)
+    
+    def loss(self, Y_hat, Y): #for a single exmaple more efficient since some terms will vanish anyway
+        return -torch.log(Y_hat[list(range(len(Y_hat))), Y.to(dtype = int)]).sum()
+
+    # def configure_optimizers(self):
+    #     return Optim_SGD(self.parameters(), self.lr)
