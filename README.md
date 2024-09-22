@@ -32,7 +32,7 @@
 
 ## About The Project
 
-This project reimagines the classic LeNet-5 architecture using raw PyTorch tensors. It features a custom-built CNN with hand-crafted convolutional layers, Sigmoid activations, and max pooling. 
+This project implements the classic LeNet-5 architecture using raw PyTorch tensors. It features a custom-built CNN with hand-crafted convolutional layers, Sigmoid activations, and max pooling. 
 The bespoke training system combines stochastic gradient descent with cross-entropy loss, complemented by an efficient data pipeline. 
 Tested on the Fashion MNIST dataset, this implementation offers a deep dive into CNN fundamentals, balancing performance with educational insights.
 
